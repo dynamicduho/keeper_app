@@ -30,10 +30,12 @@ from flask import Flask # we use flask to handle our web requests
 
 app = Flask(__name__)
 
+DBpasswd = input("enter database password: ")
+
 db = mysql.connector.connect(
         host="34.130.177.4",
         user="root",
-        password="", # delete this before upload to github
+        password= DBpasswd, # delete this before upload to github
         database='helloWorld'
     )
 
