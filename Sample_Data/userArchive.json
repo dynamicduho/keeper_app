@@ -1,0 +1,67 @@
+{
+    "userID": 2304,
+    "receipts": [
+        {
+            "receiptID": 1000,
+            "merchant": "Pho Xpress",
+            "date":"08/13/2021",
+            "items": [
+                {
+                    "item1": {
+                        "item_name": "Specialty Rice Noodle",
+                        "item_quantity": 1,
+                        "item_price": 13.50
+                    }
+                }
+            ],  
+            "item_subtotal": 13.50,
+            "item_HST": 1.49,
+            "item_total": 12.97,
+            "pay_method": "Master Card"
+        },
+        {
+            "receiptID": 1001,
+            "merchant": "Sugar Marmalade",
+            "date":"08/15/2021",
+            "items": [
+                {
+                    "item1": {
+                        "item_name": "Yuzu Lemonator",
+                        "item_quantity": 1,
+                        "item_price": 6.49
+                    }
+                }
+            ],  
+            "item_subtotal": 6.49,
+            "item_HST": 0.84,
+            "item_total": 7.33,
+            "pay_method": "Cash",
+            "cash_paid": 8.00,
+            "cash_change": 0.67
+        },
+        {
+            "receiptID": 1002,
+            "merchant": "Cineplex",
+            "date":"08/20/2021",
+            "items": [
+                {
+                    "item1": {
+                        "item_name":"Black Widow - Adult",
+                        "item_quantity": 1,
+                        "item_price": 10.21
+                    },
+                    "item2": {
+                        "item_name": "Black Widow - Child",
+                        "item_quantity": 2,
+                        "item_price": 5.78
+                    }
+                }
+            ],  
+            "item_subtotal": 21.77,
+            "item_HST": 2.83,
+            "item_total": 24.60,
+            "pay_method": "Debit"
+        }
+        
+    ]
+}
