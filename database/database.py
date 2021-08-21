@@ -26,7 +26,7 @@
 # import pyodbc # imports our DB connector
 import mysql.connector
 
-from flask import Flask # we use flask to handle our web requests
+from flask import Flask, request # we use flask to handle our web requests
 
 app = Flask(__name__)
 
@@ -58,6 +58,23 @@ def testSQL():
     table = str(cursor.fetchall())
     return table
 
+# takes a parameter for the receipt to upload to database
+# requires: receipt must be a valid string
+#           submit a post request to send receipt over
+@app.route("/uploadReceipt", methods=["POST"])
+def uploadReceipt():
+    receipt = request.form.get("receipt")
+    # cursor.execute("SELECT * FROM hackers;")
+    # table = str(cursor.fetchall())
+    # return table
+    return receipt
+
+@app.route("/getReceipts")
+def getReceipts():
+    cursor.execute("SELECT * FROM hackers;")
+    table = str(cursor.fetchall())
+    return table
+
 @app.route("/") # route is just the URL you want to access
 def index():
     return "hello, world"
@@ -68,3 +85,6 @@ if __name__ == "__main__":
 # SQL notes:
 # meaning of -> in mysql shell: https://superuser.com/questions/160197/what-does-an-arrow-symbol-mean-on-the-command-line/160201
 # varchar(max) dynamically allocates storage so it scales the data you store
+
+# http request notes:
+# scheme don't have a registered handler” error: http:// is probably missing
