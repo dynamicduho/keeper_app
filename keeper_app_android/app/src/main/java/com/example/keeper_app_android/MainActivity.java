@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
             // File to be transferred
             // For the sake of this tutorial I've placed an image
             // named 'wallpaper.png' in the 'Pictures' directory
-            String fileName = "userID.txt";
+            String fileName = "sampleReceipts.json";
 
             // Retrieve the path to the user's public pictures directory
             File path = Environment.getExternalStoragePublicDirectory(
