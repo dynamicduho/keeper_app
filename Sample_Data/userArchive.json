@@ -5,6 +5,7 @@
             "receiptID": 1000,
             "merchant": "Pho Xpress",
             "date":"08/13/2021",
+            "address": "7077 Bathrust St.",
             "items": [
                 {
                     "item1": {
@@ -23,6 +24,7 @@
             "receiptID": 1001,
             "merchant": "Sugar Marmalade",
             "date":"08/15/2021",
+            "address": "280 Spadina Ave.",
             "items": [
                 {
                     "item1": {
@@ -43,6 +45,7 @@
             "receiptID": 1002,
             "merchant": "Cineplex",
             "date":"08/20/2021",
+            "address": "140 Movie Ave.",
             "items": [
                 {
                     "item1": {
