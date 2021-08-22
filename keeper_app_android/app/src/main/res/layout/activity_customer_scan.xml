@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Return"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

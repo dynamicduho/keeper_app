@@ -11,6 +11,8 @@
       android:id="@+id/button_send_receipt"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:backgroundTint="@color/black"
+      android:textColor="@color/white"
       android:onClick="sendFile"
       android:padding="8dp"
       android:text="Send Receipt"

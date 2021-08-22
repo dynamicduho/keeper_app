@@ -3,6 +3,7 @@ package com.example.keeper_app_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -12,9 +13,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +37,7 @@ import java.io.File;
 public class Customer_Archive extends AppCompatActivity {
     private Button button_view_receipt;
     private Button button_customer_upload;
+    private Button button_GET_receipt;
 
     ArrayList<String> merchant_names = new ArrayList<>();
     ArrayList<String> receiptIDs = new ArrayList<>();
@@ -44,6 +56,7 @@ public class Customer_Archive extends AppCompatActivity {
                 openReceiptView();
             }
         });
+
 
         // recyclerview ref
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -82,10 +95,31 @@ public class Customer_Archive extends AppCompatActivity {
         button_customer_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadReceipt();
+                try {
+                    //use the async "class" like a function
+                    new sendPostRequest1().execute(loadJSONFromAsset());
+                    Toast.makeText(getApplicationContext(), "Receipt has been uploaded!", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+        button_GET_receipt = (Button)findViewById(R.id.button_GET_receipt);
+        button_GET_receipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //use the async "class" like a function
+                    new sendGetRequest().execute();
+                    Toast.makeText(getApplicationContext(), "Received receipt!", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -111,8 +145,123 @@ public class Customer_Archive extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void uploadReceipt() {
-        /* String url = "http://yourserver";
+
+
+
+    class sendPostRequest1 extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                String dataToSend = strings[0];
+                // data we want to send
+                String post_data="receipt=" + dataToSend;
+
+                // sends the http request
+                String dbLink = "https://keeper-database.herokuapp.com/uploadReceipt";
+                URL dbURL = new URL(dbLink);
+                HttpURLConnection dbConn = (HttpURLConnection)dbURL.openConnection();
+                dbConn.setRequestMethod("POST");
+                dbConn.setDoOutput(true);
+
+                OutputStream outputStream = dbConn.getOutputStream();
+                outputStream.write(post_data.getBytes());
+                outputStream.flush();
+                outputStream.close();
+
+                // converts response received to string
+                String inputLine = "";
+                BufferedReader BReader = new BufferedReader(
+                        new InputStreamReader(dbConn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = BReader.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                BReader.close();
+                String output = response.toString();
+
+                // testing code
+                // System.out.println("response is: "+ output);
+                return output;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    // sends a get request to server and returns a string for the server's response
+    class sendGetRequest extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                // sends the http request
+                String dbLink = "https://keeper-database.herokuapp.com/getReceipts";
+                URL dbURL = new URL(dbLink);
+                HttpURLConnection dbConn = (HttpURLConnection)dbURL.openConnection();
+                dbConn.setRequestMethod("GET");
+
+                // converts response received to string
+                String inputLine = "";
+                BufferedReader BReader = new BufferedReader(
+                        new InputStreamReader(dbConn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = BReader.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                BReader.close();
+                String output = response.toString();
+
+                // testing code
+                // System.out.println("response is: "+ output);
+                return output;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String output) {
+            Toast.makeText(getApplicationContext(), output, Toast.LENGTH_SHORT).show();
+            System.out.print(output);
+        }
+    }
+
+
+
+
+
+    public static String sendPostRequest(String dataToSend) throws Exception {
+        // data we want to send
+        String post_data = "receipt=" + dataToSend;
+
+        // sends the http request
+        String dbLink = "https://keeper-database.herokuapp.com/uploadReceipt";
+        URL dbURL = new URL(dbLink);
+        HttpURLConnection dbConn = (HttpURLConnection) dbURL.openConnection();
+        dbConn.setRequestMethod("POST");
+        dbConn.setDoOutput(true);
+
+        OutputStream outputStream = dbConn.getOutputStream();
+        outputStream.write(post_data.getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // converts response received to string
+        String inputLine = "";
+        BufferedReader BReader = new BufferedReader(
+                new InputStreamReader(dbConn.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = BReader.readLine()) != null) {
+            response.append(inputLine);
+        }
+        BReader.close();
+        String output = response.toString();
+
+        // testing code
+        // System.out.println("response is: "+ output);
+        return output;
+    }
+    /* public void uploadReceipt() {
+        String url = "http://yourserver";
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),
                 "yourfile");
         try {
@@ -148,5 +297,3 @@ public class Customer_Archive extends AppCompatActivity {
 //
 //
 //    }
-
-}

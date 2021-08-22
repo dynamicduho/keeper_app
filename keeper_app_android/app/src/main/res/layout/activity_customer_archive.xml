@@ -20,9 +20,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
@@ -39,17 +39,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
-    <Button
-        android:id="@+id/button_customer_upload"
-        android:layout_width="345dp"
-        android:layout_height="53dp"
-        android:padding="8dp"
-        android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+    <TextView
+        android:id="@+id/scrollable_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars = "vertical"
+        android:text="Press Retrieve From Cloud"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818" />
+        app:layout_constraintVertical_bias="0.654" />
+
+    <Button
+    android:id="@+id/button_customer_upload"
+    android:layout_width="345dp"
+    android:layout_height="53dp"
+    android:padding="8dp"
+    android:text="Upload to Cloud"
+    android:backgroundTint="@color/black"
+    android:textColor="@color/white"
+    app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.818" />
 
     <Button
         android:id="@+id/button_view_receipt"
@@ -57,11 +73,27 @@
         android:layout_height="53dp"
         android:padding="8dp"
         android:text="View Receipt #1000"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.485" />
+
+    <Button
+        android:id="@+id/button_GET_receipt"
+        android:layout_width="345dp"
+        android:layout_height="53dp"
+        android:backgroundTint="@color/black"
+        android:padding="8dp"
+        android:text="Retrieve from Cloud"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.884" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
