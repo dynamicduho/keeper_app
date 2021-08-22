@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Customer_Scan">
+    tools:context=".Customer_Archive">
 
     <Button
-        android:id="@+id/customer_scan_return"
+        android:id="@+id/button_customer_upload"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Return"
+        android:text="Upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
