@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Keeper_app_android">
         <activity
+            android:name=".Customer_Receipt_View"
+            android:exported="true" />
+        <activity
             android:name=".Customer_Archive"
             android:exported="true" />
         <activity

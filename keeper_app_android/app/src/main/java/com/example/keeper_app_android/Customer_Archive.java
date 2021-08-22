@@ -2,6 +2,7 @@ package com.example.keeper_app_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -23,17 +24,26 @@ import java.util.Arrays;
 import java.io.File;
 
 public class Customer_Archive extends AppCompatActivity {
+    private Button button_view_receipt;
+    private Button button_customer_upload;
 
     ArrayList<String> merchant_names = new ArrayList<>();
     ArrayList<String> receiptIDs = new ArrayList<>();
     ArrayList<Double> total_prices = new ArrayList<>();
 
-    private Button button_customer_upload;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_archive);
+
+        // navigate to receipt
+        button_view_receipt = (Button) findViewById(R.id.button_view_receipt);
+        button_view_receipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openReceiptView();
+            }
+        });
 
         // recyclerview ref
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -96,6 +106,10 @@ public class Customer_Archive extends AppCompatActivity {
         return json;
     }
 
+    public void openReceiptView() {
+        Intent intent = new Intent(this, Customer_Receipt_View.class);
+        startActivity(intent);
+    }
 
     public void uploadReceipt() {
         /* String url = "http://yourserver";
