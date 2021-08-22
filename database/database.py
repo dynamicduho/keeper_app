@@ -26,11 +26,15 @@
 # import pyodbc # imports our DB connector
 import mysql.connector
 
-from flask import Flask, request # we use flask to handle our web requests
+from flask import Flask, jsonify, request # we use flask to handle our web requests
+
+from dotenv import load_dotenv # import dotenv since we store our DB password in dotenv
+import os # import os for getting environment variable
+load_dotenv()
 
 app = Flask(__name__)
 
-DBpasswd = input("enter database password: ")
+DBpasswd = os.getenv("DB_PASSWORD")# input("enter database password: ")
 
 db = mysql.connector.connect(
         host="34.130.177.4",
@@ -67,7 +71,7 @@ def testSQL():
     table = str(cursor.fetchall())
     return table
 
-# takes a parameter for the receipt to upload to database
+# uploadReceipt: takes a parameter for the receipt to upload to database
 # requires: receipt must be a valid string
 #           submit a post request to send receipt over
 # note: sql insertions - https://www.w3schools.com/python/python_mysql_insert.asp
@@ -76,14 +80,14 @@ def uploadReceipt():
     receipt = request.form.get("receipt")
     cursor.execute("INSERT INTO transactions (receipt) VALUES(%s);", (receipt,))
     cursor.execute("SELECT * FROM transactions;")
-    table = str(cursor.fetchall())
+    table = jsonify(cursor.fetchall())
     return table
 
-# returns the whole transactions table
+# getReceipts: returns the whole transactions table as a json file
 @app.route("/getReceipts")
 def getReceipts():
     cursor.execute("SELECT * FROM transactions;")
-    table = str(cursor.fetchall())
+    table = jsonify(cursor.fetchall())
     return table
 
 @app.route("/") # route is just the URL you want to access
