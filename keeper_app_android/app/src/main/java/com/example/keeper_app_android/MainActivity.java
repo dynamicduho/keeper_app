@@ -9,6 +9,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button merchant_button;
+    private Button customer_button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +24,22 @@ public class MainActivity extends AppCompatActivity {
                 openMerchant_Scan();
             }
         });
+
+        customer_button = (Button)findViewById(R.id.customer_button);
+        customer_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCustomer_Archive();
+            }
+        });
     }
     public void openMerchant_Scan() {
         Intent intent = new Intent(this, Merchant_Scan.class);
+        startActivity(intent);
+    }
+
+    public void openCustomer_Archive() {
+        Intent intent = new Intent(this, Customer_Archive.class);
         startActivity(intent);
     }
 }
