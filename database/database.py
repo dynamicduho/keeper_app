@@ -23,6 +23,8 @@
 # you have to "set FLASK_APP = yourAppName" before you try to run your flask app
 # then you just have to python yourAppName.py
 
+# how to deploy your python FLASK app to heroku: https://www.youtube.com/watch?v=Li0Abz-KT78
+
 # import pyodbc # imports our DB connector
 import mysql.connector
 
@@ -35,6 +37,7 @@ load_dotenv()
 app = Flask(__name__)
 
 DBpasswd = os.getenv("DB_PASSWORD")# input("enter database password: ")
+# DBpasswd = os.environ.get("DB_PASSWORD")
 
 db = mysql.connector.connect(
         host="34.130.177.4",
