@@ -1,28 +1,27 @@
 package com.example.landingpage
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
-    private Button button;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Button changeActivityBTN = findViewById(R.id.button_customer);
+        val button = findViewById<Button>(R.id.button_customer)
+        button.setOnClickListener {
+            val intent = Intent(this, CustomerArchive::class.java)
 
-        changeActivityBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeActivity();
-            }
-        });
+            print("Hello")
+            startActivity(intent)
 
-    }
 
-    private void changeActivity() {
-        Intent intent = new Intent (packageContext:this, newActivity.class);
-        startAtivity(intent);
+        }
     }
 }
+
+
+

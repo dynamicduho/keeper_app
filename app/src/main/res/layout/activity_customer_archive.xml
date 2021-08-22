@@ -11,15 +11,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#D6DFC4"
         tools:context=".CustomerArchive">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="692dp"
-            android:layout_marginTop="-70dp"
+            android:layout_height="match_parent"
             android:rotation="180"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Archived Receipts"
             android:textSize="18dp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.498"
@@ -45,18 +45,12 @@
             android:id="@+id/dotted_AR"
             android:layout_width="250dp"
             android:layout_height="5dp"
-            android:layout_marginBottom="556dp"
+            android:layout_marginBottom="572dp"
             android:gravity="center_horizontal"
             android:layerType="software"
             android:src="@drawable/dotted"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="80dp" />
-
-        <SearchView
-            android:layout_width="345dp"
-            android:layout_height="45dp"
-            tools:layout_editor_absoluteX="33dp"
-            tools:layout_editor_absoluteY="76dp" />
 
         <Button
             android:id="@+id/return_AR"
@@ -71,12 +65,43 @@
             android:id="@+id/receipt1"
             android:layout_width="324dp"
             android:layout_height="127dp"
-            android:text=""
+            android:text="@string/r1_preview"
+            android:textSize="18dp"
             tools:layout_editor_absoluteX="43dp"
-            tools:layout_editor_absoluteY="143dp" />
+            tools:layout_editor_absoluteY="136dp" />
 
+        <Button
+            android:id="@+id/receipt"
+            android:layout_width="324dp"
+            android:layout_height="127dp"
+            android:text="@string/r1_preview"
+            android:textSize="18dp"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="275dp" />
+
+        <Button
+            android:id="@+id/receipt2"
+            android:layout_width="324dp"
+            android:layout_height="127dp"
+            android:text="@string/r1_preview"
+            android:textSize="18dp"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="419dp" />
+
+        <SearchView
+            android:layout_width="325dp"
+            android:layout_height="35dp"
+            android:background="#D6DFC4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.137" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </ScrollView>
 
