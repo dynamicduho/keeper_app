@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,7 +25,10 @@ import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -56,6 +60,9 @@ public class Customer_Archive extends AppCompatActivity {
                 openReceiptView();
             }
         });
+
+        TextView scrollview=(TextView)findViewById(R.id.scrollable_text);
+        scrollview.setMovementMethod(new ScrollingMovementMethod());
 
 
         // recyclerview ref
@@ -113,7 +120,6 @@ public class Customer_Archive extends AppCompatActivity {
                 try {
                     //use the async "class" like a function
                     new sendGetRequest().execute();
-                    Toast.makeText(getApplicationContext(), "Received receipt!", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
@@ -122,6 +128,8 @@ public class Customer_Archive extends AppCompatActivity {
         });
 
     }
+
+
 
 
     public String loadJSONFromAsset() {
@@ -220,14 +228,26 @@ public class Customer_Archive extends AppCompatActivity {
             return null;
         }
         protected void onPostExecute(String output) {
-            Toast.makeText(getApplicationContext(), output, Toast.LENGTH_SHORT).show();
-            System.out.print(output);
+            try {
+                String receipt = "";
+                JSONArray jsonArr = new JSONArray(output);
+                for (int i = 0; i < jsonArr.length(); ++i) {
+                    JSONArray jsonArr2 = new JSONArray(jsonArr.getJSONArray(i).getString(0));
+                    receipt = receipt + jsonArr2.toString();
+                }
+                JSONArray jsonArr3 = new JSONArray(receipt);
+                TextView scrollable_text;
+                scrollable_text = (TextView) findViewById(R.id.scrollable_text);
+                scrollable_text.setText(jsonArr3.toString(4));
+
+                Toast.makeText(getApplicationContext(), "GET Successful", Toast.LENGTH_SHORT).show();
+                System.out.print(output);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
     }
-
-
-
-
 
     public static String sendPostRequest(String dataToSend) throws Exception {
         // data we want to send

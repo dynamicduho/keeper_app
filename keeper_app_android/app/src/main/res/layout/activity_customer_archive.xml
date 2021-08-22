@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="-55dp" />
 
     <TextView
         android:id="@+id/archivedReceipt"
@@ -43,15 +43,16 @@
         android:id="@+id/scrollable_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars = "vertical"
-        android:text="Press Retrieve From Cloud"
+        android:maxLines="9"
+        android:scrollbars="vertical"
+        android:text="Press Retrieve From Cloud and Scroll"
         android:textColor="@color/black"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.654" />
+        app:layout_constraintVertical_bias="0.461" />
 
     <Button
     android:id="@+id/button_customer_upload"
@@ -71,15 +72,15 @@
         android:id="@+id/button_view_receipt"
         android:layout_width="345dp"
         android:layout_height="53dp"
+        android:backgroundTint="@color/black"
         android:padding="8dp"
         android:text="View Receipt #1000"
         android:textColor="@color/white"
-        android:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintVertical_bias="0.213" />
 
     <Button
         android:id="@+id/button_GET_receipt"
