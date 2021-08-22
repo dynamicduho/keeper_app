@@ -7,9 +7,26 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import java.io.File;
 
 public class Customer_Archive extends AppCompatActivity {
+
+    ArrayList<String> merchant_names = new ArrayList<>();
+    ArrayList<String> receiptIDs = new ArrayList<>();
+    ArrayList<Double> total_prices = new ArrayList<>();
 
     private Button button_customer_upload;
 
@@ -17,6 +34,39 @@ public class Customer_Archive extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_archive);
+
+        // recyclerview ref
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        // set linearlayoutmanager default vertical
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        try {
+            // get JSONObject from JSON file
+            JSONObject obj = new JSONObject(loadJSONFromAsset());
+            // fetch JSONArray named users
+            JSONArray receiptArray = obj.getJSONArray("receipts");
+            // implement for loop for getting users list data
+            for (int i = 0; i < receiptArray.length(); i++) {
+                // create a JSONObject for fetching single receipt data
+                JSONObject receiptDetail = receiptArray.getJSONObject(i);
+                // fetch details and store it in arraylist
+                merchant_names.add(receiptDetail.getString("merchant"));
+                receiptIDs.add(receiptDetail.getString("receiptID"));
+                total_prices.add(receiptDetail.getDouble("item_total"));
+
+                // create a object for getting item data from JSONObject
+                     // JSONObject items = receiptDetail.getJSONObject("items");
+                // store items_names in arraylist
+                    //  items_names.add(items.getString("item)name"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //  call the constructor of CustomAdapter to send the reference and data to Adapter
+        CustomAdapter customAdapter = new CustomAdapter(Customer_Archive.this, merchant_names, receiptIDs, total_prices);
+        recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
 
         button_customer_upload = (Button)findViewById(R.id.button_customer_upload);
         button_customer_upload.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +78,25 @@ public class Customer_Archive extends AppCompatActivity {
 
 
     }
+
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getAssets().open("sampleReceipts.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+
     public void uploadReceipt() {
         /* String url = "http://yourserver";
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),
@@ -49,4 +118,21 @@ public class Customer_Archive extends AppCompatActivity {
             // show error
         }*/
     }
+
+
+//    public void openReceipt() {
+//        String fileName = "sampleReceipts.json";
+//
+//        // Retrieve the path to the user's public pictures directory
+//        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+//        path.mkdirs();
+//
+//        // Create a new file using the specified directory and name
+//        File fileToOpen = new File(path, fileName);
+//        fileToOpen.setReadable(true, false);
+//
+//
+//
+//    }
+
 }

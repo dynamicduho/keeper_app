@@ -14,8 +14,10 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class Merchant_Scan extends Activity {
+
+public class Merchant_Scan extends AppCompatActivity {
 
     private NfcAdapter nfcAdapter;
 
