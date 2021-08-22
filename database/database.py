@@ -36,10 +36,17 @@ db = mysql.connector.connect(
         host="34.130.177.4",
         user="root",
         password= DBpasswd, # delete this before upload to github
-        database='helloWorld'
+        database='receiptArchive'
     )
 
 cursor = db.cursor()
+
+# creates the transactions table if it doesn't exist
+# notes: https://www.mysqltutorial.org/mysql-create-table/
+#  VARCHAR(21844): max # of chars for utf8 varchars, but 
+#  it seems that TEXT is better for specifying large variable 
+#  strings, since it deals with size limits better
+cursor.execute("CREATE TABLE IF NOT EXISTS transactions (transaction_id INT AUTO_INCREMENT PRIMARY KEY, receipt TEXT NOT NULL);") 
 
 @app.route("/testSQL") # route is just the URL you want to access
 def testSQL():
@@ -54,7 +61,7 @@ def testSQL():
 
     # print(cursor.fetchall())
     # SQL queries working properly now!!
-    cursor.execute("SELECT * FROM hackers;")
+    cursor.execute("SELECT * FROM transactions;")
     table = str(cursor.fetchall())
     return table
 
@@ -64,14 +71,15 @@ def testSQL():
 @app.route("/uploadReceipt", methods=["POST"])
 def uploadReceipt():
     receipt = request.form.get("receipt")
-    # cursor.execute("SELECT * FROM hackers;")
-    # table = str(cursor.fetchall())
-    # return table
-    return receipt
+    cursor.execute("INSERT INTO transactions (receipt) VALUES(%s);", (receipt,))
+    cursor.execute("SELECT * FROM transactions;")
+    table = str(cursor.fetchall())
+    return table
 
+# returns the whole transactions table
 @app.route("/getReceipts")
 def getReceipts():
-    cursor.execute("SELECT * FROM hackers;")
+    cursor.execute("SELECT * FROM transactions;")
     table = str(cursor.fetchall())
     return table
 
