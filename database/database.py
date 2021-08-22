@@ -41,6 +41,8 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+cursor.execute("SET AUTOCOMMIT = true;") # turns autocommit on so that your changes to the databases are commited without having to explicitly commit a change
+
 # creates the transactions table if it doesn't exist
 # notes: https://www.mysqltutorial.org/mysql-create-table/
 #  VARCHAR(21844): max # of chars for utf8 varchars, but 
@@ -68,6 +70,7 @@ def testSQL():
 # takes a parameter for the receipt to upload to database
 # requires: receipt must be a valid string
 #           submit a post request to send receipt over
+# note: sql insertions - https://www.w3schools.com/python/python_mysql_insert.asp
 @app.route("/uploadReceipt", methods=["POST"])
 def uploadReceipt():
     receipt = request.form.get("receipt")
