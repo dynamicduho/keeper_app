@@ -1,8 +1,9 @@
 # keeper_app
 Android app for NFC receipts
-__Youtube video editor processing error at 1:09; "Beam Complete" notification was blurred out accidentally, but you can see the transfer icon starts immediately after the NFC beam__
 
 ## Keeper was chosen as a HT6 Finalist!!!
+![Screenshot](Screenshot%202021-08-22%20181121.jpg)
+
 ---
 ## Project Overview
 Keeper is a mobile application that digitizes the collection of receipts onto a comprehensive cloud and local platform,  making smart receipts a reality. A simple installation of Keeper would enable users to manage their receipts in an efficient manner, back it up safely on the cloud, while simultaneously contributing to the elimination of environmental concerns associated with paper receipt production. Businesses save on the cost of buying receipt rolls, and increase customer service (no more jammed printers!). Plus, no need to worry about losing your receipts for returns or warranties anymore - it’s backed up on the cloud.
