@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!-- design: header, intro section, video section, sections of our features & pictures, footer. be authentic -->
+<!-- examples: https://www.digitalocean.com/, https://www.lenovo.com/ca/en/yoga, https://www.google.com/intl/en_ca/drive/ -->
+<!-- made following this tutorial: https://www.youtube.com/watch?v=oYRda7UtuhA -->
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- controls our responsive viewport -->
+		<title>better receipt management - Keeper App</title>
+		<link rel="stylesheet" href="style.css"> <!-- in case you put styling code in a separate file -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"> <!-- imports some cool icons from font awesome, importing font awesome cdn can be problematic, some cdns don't have all the symbols and some links don't have enough symbols as others. e.x. all.css > fontawesome.min.css -->
+	</head>
+	<body>
+		<header>
+			<!-- our header: contains logo, nav, and login -->
+			<nav>
+				<a href="index.html"><img src="images/keeper-logo.png" width="100" height="70"><a>
+				<div class="nav-links" id="navLinks">
+					<i class="fa fa-window-close" onclick="hideMenu()"></i> <!-- adds close button from font awesome -->
+					<ul>
+						<li><a href="index.html#features">Features</a></li>
+						<li><a href="index.html#about-us">About Us</a></li>
+						<li><a href="index.html#contacts">Contact Us</a></li>
+						<li><a href="receipts.html">View my receipts</a></li>
+					</ul>
+				</div>
+				<i class="fa fa-bars" onclick="showMenu()"></i>
+			</nav>
+		</header>
+		<main>
+		<section class="section1">
+		<div class="text-box-centre">
+			<h1>The Best App For Receipt Keeping</h1>
+			<p>Keeper is a mobile application that digitizes the collection of receipts onto a comprehensive cloud and local platform, making smart receipts a reality</p>
+			<a href="receipts.html" class="button">manage my receipts now</a>
+			<div align="center"><iframe width="560px" height="315px" src="https://www.youtube.com/embed/DoTj7_8motA" frameborder="0" allow="autoplay; clipboard-write; encrypted-media;" allowfullscreen></iframe></div>
+		</div>
+		</section>
+
+		<section style="position: relative;" id="features">
+		<div class="text-box">
+			<h1>Send receipts through NFC</h1>
+			<p>After installing our cell phone app, you can receive receipts by simply tapping your phone against the receipt machine from the vendor. Our app uses the NFC technology that comes with all modern cell phones to transfer receipt data at extreme close range, where the data is secure from eavesdropping</p>
+			<div class="row">
+			<div class="NFC-col">
+				<img src="images/NFC-receipt-roll.jpg">
+				<h3>Save receipt rolls</h3>
+			</div>
+			<div class="NFC-col">
+				<img src="images/nfc-email-receipt.png">
+				<h3>No complicated email process</h3>
+			</div>
+			<div class="NFC-col">
+				<img src="images/nfc-one-tap.jpg">
+				<h3>requires just one tap</h3>
+			</div>
+			</div>
+		</div>
+		</section>
+
+		<section style="position: relative;">
+		<div class="text-box">
+			<h1>Digital Receipts</h1>
+			<p>Your receipts would be completely digital. This means that it's easy to store, maintain, organize and find your receipts</p>
+			<div class="row">
+			<div class="NFC-col">
+				<img src="images/DR-deforestation.jpg">
+				<h3>Less Pollution</h3>
+			</div>
+			<div class="NFC-col">
+				<img src="images/DR-receipt-organization.jpg">
+				<h3>Better organization</h3>
+			</div>
+			<div class="NFC-col">
+				<img src="images/DR-receipt-condition.jpg">
+				<h3>Good receipt condition</h3>
+			</div>
+			</div>
+		</div>
+		</section>
+
+		<section style="position: relative;">
+		<div class="text-box">
+			<h1>Cloud storage</h1>
+			<p>By store all your receipt data into our cloud storage service, you can access your receipts anywhere, and backup your receipts in case of accidents. Your data is secure in our database and we will protect your privacy</p>
+			<div class="row">
+			<div class="NFC-col">
+				<img src="images/Cloud-accessibility.png">
+				<h3>Access your receipts Anywhere</h3>
+			</div>
+			<div class="NFC-col">
+				<img src="images/Cloud-backup.jpg">
+				<h3>Backup your receipts in case of accidents</h3>
+			</div>
+			<div class="NFC-col">
+				<img src="images/Cloud-secure-data.png">
+				<h3>Your data is secure and private</h3>
+			</div>
+			</div>
+		</div>
+		</section>
+		</main>
+
+		<footer class="footer" style="position: relative;">
+			<div class="footer-element">
+				<h4 id="about-us">About Us</h4>
+				<p>We are glad that we managed to execute the functionality of the NFC chip in transferring data via tap. We are proud of finishing the database of the app where the receipt file can be stored and displayed on the app. Overall, we had a valuable experience learning about both back and frontend development for mobile applications.</p>
+			</div>
+			<div class="footer-element">
+				<h4 id="contacts">Find and Contact Us</h4>
+				<div class="text-box" style="padding-top: 0;">
+					<div class="message-box">
+					<h3>Message Us<h3>
+					<form>
+						<input type="text" placeholder="Enter Name">
+						<input type="email" placeholder="Enter Email">
+						<textarea rows="5" placeholder="your message"></textarea>
+						<button type="submit" class="button" style="color: #000; border: 1px solid #000;">Send message</button>
+					</form>
+					</div>
+					<br>
+					<a href="https://github.com/dynamicduho/keeper_app" target="_blank" rel="noopener noreferrer"><i class="fa fa-github"></i></a>
+				</div>
+			</div>
+		</footer>
+		
+		<script>
+			// deal with opening and closing of the navigation bar links
+			var navLinks= document.getElementById("navLinks");
+			function showMenu() {
+				navLinks.style.right = "0";
+			}
+			function hideMenu() {
+				navLinks.style.right = "-200px";
+			}
+		</script>
+	</body>
+</html>

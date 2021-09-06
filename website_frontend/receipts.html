@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- controls our responsive viewport -->
+		<title>My receipts - Keeper App</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"> <!-- imports some cool icons from font awesome, importing font awesome cdn can be problematic, some cdns don't have all the symbols and some links don't have enough symbols as others. e.x. all.css > fontawesome.min.css -->
+	</head>
+	<body>
+		<header>
+			<!-- our header: contains logo, nav, and login -->
+			<nav>
+				<a href="index.html"><img src="images/keeper-logo.png" width="100" height="70"><a>
+				<div class="nav-links" id="navLinks">
+					<i class="fa fa-window-close" onclick="hideMenu()"></i> <!-- adds close button from font awesome -->
+					<ul>
+						<li><a href="index.html#features">Features</a></li>
+						<li><a href="index.html#about-us">About Us</a></li>
+						<li><a href="index.html#contacts">Contact Us</a></li>
+						<li><a href="receipts.html">View my receipts</a></li>
+					</ul>
+				</div>
+				<i class="fa fa-bars" onclick="showMenu()"></i>
+			</nav>
+		</header>
+		<main>
+		<section class="section1">
+		<div class="text-box">
+		<form action="http://corn-syrup.csclub.uwaterloo.ca:28401/testSQL" method="get">
+			<input name="name", placeholder="talk to testSQL", type="text">
+			<input type="submit">
+		</form>
+		</br>
+		<form action="http://corn-syrup.csclub.uwaterloo.ca:28401/uploadReceipt" method="post">
+			<input name="receipt", placeholder="upload receipt", type="text">
+			<input type="submit">
+		</form>
+		</br>
+		<form action="http://corn-syrup.csclub.uwaterloo.ca:28401/getReceipts" method="get">
+			<input name="receipt", placeholder="get receipts", type="text">
+			<input type="submit">
+		</form>
+		</div>
+		</section>
+		</main>
+
+		<footer class="footer" style="position: relative;">
+			<div class="footer-element">
+				<h4 id="about-us">About Us</h4>
+				<p>We are glad that we managed to execute the functionality of the NFC chip in transferring data via tap. We are proud of finishing the database of the app where the receipt file can be stored and displayed on the app. Overall, we had a valuable experience learning about both back and frontend development for mobile applications.</p>
+			</div>
+			<div class="footer-element">
+				<h4 id="contacts">Find and Contact Us</h4>
+				<div class="text-box" style="padding-top: 0;">
+					<div class="message-box">
+					<h3>Message Us<h3>
+					<form>
+						<input type="text" placeholder="Enter Name">
+						<input type="email" placeholder="Enter Email">
+						<textarea rows="5" placeholder="your message"></textarea>
+						<button type="submit" class="button" style="color: #000; border: 1px solid #000;">Send message</button>
+					</form>
+					</div>
+					<br>
+					<a href="https://github.com/dynamicduho/keeper_app" target="_blank" rel="noopener noreferrer"><i class="fa fa-github"></i></a>
+				</div>
+			</div>
+		</footer>
+		
+		<script>
+			// deal with opening and closing of the navigation bar links
+			var navLinks= document.getElementById("navLinks");
+			function showMenu() {
+				navLinks.style.right = "0";
+			}
+			function hideMenu() {
+				navLinks.style.right = "-200px";
+			}
+		</script>
+	</body>
+</html>
