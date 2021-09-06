@@ -163,4 +163,5 @@ if __name__ == "__main__":
 #  https://stackoverflow.com/questions/16344756/auto-reloading-python-flask-app-upon-code-changes
 
 # also, we store all our project code into the same git repository. however, to host the website_frontend and database, i need to host them as separate repositories. so what i did is set up a git repository in both folders (in other words, set up two git repositories within a git repository), then i used gitignore to ignore those git repositories.
-# i named the remote uw_server for the git repositories 
+# i named the remote uw_server for the git repositories
+# sometimes git gives me problems when i have nested git repositories, to deal with this, first take out the .git in the repository within, then upload the code, then add the .git back in
