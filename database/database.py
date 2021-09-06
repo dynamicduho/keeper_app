@@ -23,7 +23,45 @@
 # you have to "set FLASK_APP = yourAppName" before you try to run your flask app
 # then you just have to python yourAppName.py
 
-# how to deploy your python FLASK app to heroku: https://www.youtube.com/watch?v=Li0Abz-KT78
+# web hosting is as simple as building a webapp or html document on your computer and connecting it to the internet.
+# 1. how to deploy your python FLASK app to heroku: https://www.youtube.com/watch?v=Li0Abz-KT78
+#     since hosting services like heroku and google cloud are hard to deal with, i'm moving all our hosted
+#     apps to CSC machines. i plan to host it on caffeine. to request to use mysql server, use ceo
+# 2. how to host your website on linux server: https://www.youtube.com/watch?v=wFjYzhkEBys, https://www.youtube.com/watch?v=goToXTC96Co
+# 3. how to host your website on a server where you don't have full permissions: using others' computer really is a pain, you don't get full access and you get permission errors everywhere.
+#     so you have to make workarounds, contact the system admin, and tamper with system level stuff as less as possible (this is where virtual env really comes in handy)
+
+# on a server, you want to run your app in a virtual environment so that your dependencies are all contained within your project folder.
+
+# how to host a webapp on a linux server on your own instead of heroku: it seems that static web hosting
+#  and dynamic website hosting seem to be quite different. static websites is like you go on the ip address then
+#  traverse through the directory of the ip address like a local directory so you can get them through "csclub.uwaterloo.ca/~username". On the other hand,
+# to deploy a flask app on linux server, you need to run it using flask and set the host to 0.0.0.0 so it's not just
+#  a loopback on localhost, and specify a port for it to listen on. then, you should be able to access it through specifying
+#  ip address and port. however, sometimes, it can be blocked by firewall on your linux server. to bypass that firewall, you can
+#  forward your port to an allowed port on your network (e.x. SSH tunneling), you can also reverse proxy through your web space
+#  , or use VPN.
+# you can use curl, nc, telnet, netstat -lntp to test your webapp status on linux cli
+# localhost vs 127.0.0.1 vs 0.0.0.0: https://stackoverflow.com/questions/20778771/what-is-the-difference-between-0-0-0-0-127-0-0-1-and-localhost
+
+# what is port forwarding: https://www.youtube.com/watch?v=2G1ueMDgwxw
+# SSH tunneling: https://www.youtube.com/watch?v=N8f5zv9UUMI
+#  how to remove an SSH forwarding: exit the SSH connection, or use "ps aux | grep ssh", then "kill <id>"
+
+# how i bypassed the campus firewall for this flask app to host on csclub machines: 
+#  i hosted my app on caffeine because of the mysql server, then used ssh tunneling to forward to a open tcp port on corn-syrup.
+#  so i first flask run my app on caffeine in a screen. then i remote port forward it to corn-syrup. however, we are not done yet.
+#  ssh by default binds remote port forwardins to the loopback address to prevent you from bypassing the firewall. you can change
+#  GatewayPorts to allow remote port forwarding to any address but this requires root permissions. instead, i dealt with it using
+#  another local port forwarding. so i did ssh -R 28400:localhost:5000 user@corn-syrup.csclub.uwaterloo.ca then I did 
+#  ssh -g -L 28401@localhost:28400 user@corn-syrup.csclub.uwaterloo.ca at the remote: https://serverfault.com/questions/997124/ssh-r-binds-to-127-0-0-1-only-on-remote
+# csclub firewalls: https://wiki.csclub.uwaterloo.ca/Firewall#General_Use
+# csclub machines: https://wiki.csclub.uwaterloo.ca/Machine_List
+# csclub webhosting: https://wiki.csclub.uwaterloo.ca/Web_Hosting
+
+# when you activate virtual environment for your project. for some reason, your mysql.connector will
+#  have the error of mysql module cannot be found. i don't know why tho
+#  you deactivate a virtual environment by simply typing "deactivate"
 
 # import pyodbc # imports our DB connector
 import mysql.connector
@@ -36,14 +74,16 @@ load_dotenv()
 
 app = Flask(__name__)
 
+DBuser = os.getenv("USER")
+DBdatabase= os.getenv("DATABASE")
 DBpasswd = os.getenv("DB_PASSWORD")# input("enter database password: ")
 # DBpasswd = os.environ.get("DB_PASSWORD")
 
 db = mysql.connector.connect(
-        host="34.130.177.4",
-        user="root",
+        host="localhost",
+        user= DBuser,
         password= DBpasswd, # delete this before upload to github
-        database='receiptArchive'
+        database= DBdatabase
     )
 
 cursor = db.cursor()
@@ -70,7 +110,7 @@ def testSQL():
 
     # print(cursor.fetchall())
     # SQL queries working properly now!!
-    cursor.execute("SELECT * FROM transactions;")
+    cursor.execute("SELECT receipt FROM transactions;")
     table = str(cursor.fetchall())
     return table
 
@@ -89,20 +129,38 @@ def uploadReceipt():
 # getReceipts: returns the whole transactions table as a json file
 @app.route("/getReceipts")
 def getReceipts():
-    cursor.execute("SELECT * FROM transactions;")
+    cursor.execute("SELECT receipt FROM transactions;")
     table = jsonify(cursor.fetchall())
     return table
 
 @app.route("/") # route is just the URL you want to access
 def index():
-    return "hello, world"
+    return "Hello world"
 
 if __name__ == "__main__":
     app.run(debug=True) # i can't use flask run in cmd for whatever reason, i have to use "python -m flask run"
+                        # the reason why you can't use flask run is because you are not running your virtualenv, plz activate your virtualenv before you flask run
 
 # SQL notes:
 # meaning of -> in mysql shell: https://superuser.com/questions/160197/what-does-an-arrow-symbol-mean-on-the-command-line/160201
 # varchar(max) dynamically allocates storage so it scales the data you store
 
 # http request notes:
-# scheme don't have a registered handler” error: http:// is probably missing
+# scheme don't have a registered handler error: http:// is probably missing
+
+# turns out google cloud have to whitelist the IP of your app in order to let it access the database
+#  and because heroku hosted apps has dynamic IP addresses, i have to whitelist all IP addresses to
+#  allow it to work properly. this is a security hazard tho, keep it in mind
+#  https://stackoverflow.com/questions/22373279/google-cloud-sql-heroku
+
+# this app is not built as a full fledged flask app that has templates and static folders and return htmls
+#  because I want it to work the same way for both mobile app frontend and the website frontend
+
+# how git sync your web app code to your server: https://www.youtube.com/watch?v=9qIK8ZC9BnU
+
+# when you run your app in development mode (export FLASK_ENV=development) in the server, the app will automatically
+#  reload itself if you updated the source code of the flask app (e.x. pushing a new change to the server)
+#  https://stackoverflow.com/questions/16344756/auto-reloading-python-flask-app-upon-code-changes
+
+# also, we store all our project code into the same git repository. however, to host the website_frontend and database, i need to host them as separate repositories. so what i did is set up a git repository in both folders (in other words, set up two git repositories within a git repository), then i used gitignore to ignore those git repositories.
+# i named the remote uw_server for the git repositories 
