@@ -204,6 +204,13 @@
 				font-size:35px;
 				}
 
+			/* style for receipt view in receipt.html */
+			#receiptView {
+				//margin-top: 5%;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
 			/* media queries checks for information about the device currently viewing the website and helps you apply different sytles for different media types*/
 			@media(max-width: 700px) {
 				.text-box-centre h1{

@@ -72,6 +72,9 @@ from dotenv import load_dotenv # import dotenv since we store our DB password in
 import os # import os for getting environment variable
 load_dotenv()
 
+import time
+from threading import Thread # imports and time and thread to regularly send the database some query so it doesn't cut connection because of idling
+
 app = Flask(__name__)
 
 DBuser = os.getenv("USER")
@@ -88,7 +91,24 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+cursor.execute("show variables like '%timeout%';")
+print(cursor.fetchall())
+
 cursor.execute("SET AUTOCOMMIT = true;") # turns autocommit on so that your changes to the databases are commited without having to explicitly commit a change
+
+# this code regularly sends a dummy query to the mySQL database so that the database won't cut off connection because of idling
+# notes: the code, cursor.execute("SET SESSION wait_timeout=10;"), is able to replicate the lost connection error in less than 10 seconds. this means 
+#  that it's indeed the server cutting connection after idling for too long that caused the lost connection error
+# notes: # it seems that this thread will be run twice since i have reloader activated for my flask, it's not a big deal tho
+# note: interactive vs wait timeout in mySQL: https://serverfault.com/questions/375136/what-is-the-difference-between-wait-timeout-and-interactive-timeout
+def dummy_query():
+    while(True):
+        time.sleep(5 * 60 * 60)
+        cursor.execute("SELECT CURRENT_USER();")
+
+keep_connection = Thread(target=dummy_query)
+keep_connection.daemon = True # terminates the thread with the main thread if main thread is terminated
+keep_connection.start()
 
 # creates the transactions table if it doesn't exist
 # notes: https://www.mysqltutorial.org/mysql-create-table/
@@ -124,6 +144,7 @@ def uploadReceipt():
     cursor.execute("INSERT INTO transactions (receipt) VALUES(%s);", (receipt,))
     cursor.execute("SELECT * FROM transactions;")
     table = jsonify(cursor.fetchall())
+    # table.headers.add('Access-Control-Allow-Origin', '*') # to avoid CORS error on the frontend (javascript in particular)
     return table
 
 # getReceipts: returns the whole transactions table as a json file
@@ -131,11 +152,19 @@ def uploadReceipt():
 def getReceipts():
     cursor.execute("SELECT receipt FROM transactions;")
     table = jsonify(cursor.fetchall())
+    # table.headers.add('Access-Control-Allow-Origin', '*') # to avoid CORS error on the frontend (javascript in particular)
     return table
 
 @app.route("/") # route is just the URL you want to access
 def index():
     return "Hello world"
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept,Access-Control-Allow-Origin')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
 
 if __name__ == "__main__":
     app.run(debug=True) # i can't use flask run in cmd for whatever reason, i have to use "python -m flask run"
