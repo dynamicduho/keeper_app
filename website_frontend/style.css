@@ -247,7 +247,8 @@
 				flex-basis: 31%;
 				background: #fff3f3;
 				border-radius: 10px;
-				margin-bottom: 5%;
+				//margin-bottom: 5%;
+				margin: 1%;
 				padding: 20px 12px;
 				box-sizing: border-box;
 			}
@@ -332,5 +333,8 @@
 
 				#receiptView {
 					flex-direction: column;
+				}
+				.receipt {
+					margin: 15px;
 				}
 			}

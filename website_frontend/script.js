@@ -56,7 +56,7 @@ async function updateReceiptView() {
         } else {
             for (receipt in response_json) {
                 receipt1 = parseReceiptHTML(response_json[receipt]);
-                document.querySelector("#receiptView").insertAdjacentHTML('beforeend', `<div class="receipt" style="margin-bottom: 15px; margin: 15px;">${receipt1}</div>`);
+                document.querySelector("#receiptView").insertAdjacentHTML('beforeend', `<div class="receipt">${receipt1}</div>`);
             }
         }
     } catch (err) {
