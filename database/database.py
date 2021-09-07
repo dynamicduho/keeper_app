@@ -89,10 +89,10 @@ db = mysql.connector.connect(
         database= DBdatabase
     )
 
-cursor = db.cursor()
+cursor = db.cursor() # buffered=True
 
-cursor.execute("show variables like '%timeout%';")
-print(cursor.fetchall())
+# cursor.execute("show variables like '%timeout%';")
+# print(cursor.fetchall())
 
 cursor.execute("SET AUTOCOMMIT = true;") # turns autocommit on so that your changes to the databases are commited without having to explicitly commit a change
 
@@ -105,6 +105,7 @@ def dummy_query():
     while(True):
         time.sleep(5 * 60 * 60)
         cursor.execute("SELECT CURRENT_USER();")
+        cursor.fetchall() # when i do a SELECT, i have to fetch its results before doing another SELECT, otherwise, it causes the "Unread result found" error
 
 keep_connection = Thread(target=dummy_query)
 keep_connection.daemon = True # terminates the thread with the main thread if main thread is terminated
