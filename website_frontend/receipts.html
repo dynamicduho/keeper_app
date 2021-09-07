@@ -27,11 +27,33 @@
 		<main>
 		<section class="section1">
 			<div style="text-align:center; padding:20px;">
-				<div class="NFC-col" style="display: inline-block; margin-bottom:0;">
-					<textarea id="receipt-input" name="upload receipt" rows="5" cols="50" width=90%></textarea>
+				<div class="receipt-input2">
+					<i class="fa fa-times" style="color: #fff; margin: 10px;font-size: 22px;cursor: pointer;" onclick="closeInput()"></i>
+					<input id="receipt-ID" placeholder="Enter receipt ID">
+					<input id="merchant" placeholder="Enter merchant name">
+					<input type="date" id="purchaseDate" placeholder="Enter purchase date">
+					<input id="address" placeholder="Enter merchant address">
+					<input id="payment-method" placeholder="Enter payment method">
+					<div>
+						<table id="purchased-items">
+							<tr>
+								<th>item name</th>
+								<th>item quantity</th>
+								<th>item price</th>
+							</tr>
+							<tr>
+								<td><input></td>
+								<td><input type="number"></td>
+								<td><input type="number"></td>
+							</tr>
+						</table>
+						<button onclick="addItem()">add item</button>
+					</div>
+					<input type="number", id="tax" placeholder="Enter tax paid">
 					<button onclick="uploadReceipt()">upload receipt</button>
 				</div>
-				<button onclick="updateReceiptView()">refresh receipts</button>
+				<div class="receipt_input_closed button" onclick="openInput()">upload a receipt...</div>
+				<!--<button onclick="updateReceiptView()">refresh receipts</button>-->
 			</div>
 			<div id="receiptView"></div>
 		</section>

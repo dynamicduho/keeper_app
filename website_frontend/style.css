@@ -204,11 +204,73 @@
 				font-size:35px;
 				}
 
+			.receipt-input2 {
+				border: 1px solid #ccc;
+				//margin: 50px 0;
+				padding: 10px 20px;
+				display: none; /*inline-block;*/
+				margin-bottom:0;
+				transition: 0.15s;
+			}
+			.receipt-input2 h3 {
+				text-align: left;
+			}
+			.receipt-input2 input, .receipt-input2 textarea {
+				width: 100%;
+				padding: 10px;
+				margin: 15px 0;
+				box-sizing: border-box;
+				border: none;
+				outline: none;
+				background: #f0f0f0;
+			}
+			.receipt-input2 table th{
+				color: #fff;
+			}
+
+			.receipt_input_closed {
+				color: #fff;
+				display: inline-block;
+				width: 300px;
+				padding:20px 0;
+				text-align:center;
+			}
+
 			/* style for receipt view in receipt.html */
 			#receiptView {
 				//margin-top: 5%;
 				display: flex;
 				flex-wrap: wrap;
+			}
+
+			.receipt{
+				flex-basis: 31%;
+				background: #fff3f3;
+				border-radius: 10px;
+				margin-bottom: 5%;
+				padding: 20px 12px;
+				box-sizing: border-box;
+			}
+			.receipt:hover{
+				box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+			}
+			.receipt p{
+				text-align: center;
+				font-weight: 600;
+				margin: 10px 0;
+			}
+			.receipt img{
+				width:90%;
+			}
+			.receipt table{
+				border-collapse: collapse;
+				width: 100%;
+				text-align: center;
+				padding: 12px;	
+			}
+			.receipt .spread {
+				border-top: 12px solid transparent;
+				//border-bottom: 12px solid transparent;
 			}
 
 			/* media queries checks for information about the device currently viewing the website and helps you apply different sytles for different media types*/
@@ -266,5 +328,9 @@
 				}
 				.footer-element .text-box {
 					width: 100%;
+				}
+
+				#receiptView {
+					flex-direction: column;
 				}
 			}
