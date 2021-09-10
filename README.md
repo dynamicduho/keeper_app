@@ -3,6 +3,7 @@ Android app for NFC receipts
 
 ## Try keeper_app on our website
 http://csclub.uwaterloo.ca/~t4shu/website_frontend/index.html
+
 HT6 Demo video: https://youtu.be/DoTj7_8motA
 
 ## Keeper was chosen as a HT6 Finalist!!!
