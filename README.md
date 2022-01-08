@@ -2,6 +2,7 @@
 Android app for NFC receipts
 
 Hack the 6ix Demo video: https://youtu.be/DoTj7_8motA
+
 Figma Prototype: https://www.figma.com/proto/4Gxyosu9JlF3b4plmVNrUP/Keeper-App-Prototype?node-id=2%3A2&scaling=scale-down&page-id=0%3A1&starting-point-node-id=246%3A2
 
 ## Keeper was chosen as a HT6 Finalist!!!
