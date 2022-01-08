@@ -1,13 +1,11 @@
 # keeper_app
 Android app for NFC receipts
 
-## Try keeper_app on our website
-Webapp: http://csclub.uwaterloo.ca/~t4shu/website_frontend/index.html
-
-HT6 Demo video: https://youtu.be/DoTj7_8motA
+Hack the 6ix Demo video: https://youtu.be/DoTj7_8motA
+Figma Prototype: https://www.figma.com/proto/4Gxyosu9JlF3b4plmVNrUP/Keeper-App-Prototype?node-id=2%3A2&scaling=scale-down&page-id=0%3A1&starting-point-node-id=246%3A2
 
 ## Keeper was chosen as a HT6 Finalist!!!
-![Screenshot](Screenshot%202021-08-22%20181121.jpg)
+![Screenshot](HT6_FinalistsSlide.jpg)
 
 ---
 ## Project Overview
